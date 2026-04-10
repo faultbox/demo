@@ -47,7 +47,7 @@ lima-stop:
 # Build demo binaries + install faultbox inside Lima
 lima-build: build-linux
 	@echo "Installing faultbox in Lima VM..."
-	limactl shell $(LIMA_VM) -- bash -c '\
+	limactl shell $(LIMA_VM) -- sudo bash -c '\
 		export PATH=/usr/local/bin:$$PATH; \
 		if ! command -v faultbox >/dev/null 2>&1; then \
 			curl -fsSL https://faultbox.io/install.sh | FAULTBOX_DIR=/usr/local/bin sh; \
