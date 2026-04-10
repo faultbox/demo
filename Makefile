@@ -56,11 +56,13 @@ lima-build: build-linux
 		fi'
 	@echo "Ready. Run: make lima-test"
 
+# Compute Lima workdir from host PWD
+LIMA_WORKDIR = $(shell echo /host-home$$(pwd | sed "s|$$HOME||"))
+
 # Run tutorial tests inside Lima
 lima-test:
-	limactl shell --workdir /host-home/$${PWD\#$$HOME/} $(LIMA_VM) -- \
-		faultbox test demo.star
+	limactl shell --workdir $(LIMA_WORKDIR) $(LIMA_VM) -- faultbox test demo.star
 
 # Run a command inside Lima (usage: make lima-run CMD="faultbox --help")
 lima-run:
-	limactl shell --workdir /host-home/$${PWD\#$$HOME/} $(LIMA_VM) -- $(CMD)
+	limactl shell --workdir $(LIMA_WORKDIR) $(LIMA_VM) -- $(CMD)
